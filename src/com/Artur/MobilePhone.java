@@ -1,11 +1,9 @@
 package com.Artur;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 
 public class MobilePhone {
-    private Scanner scanner = new Scanner(System.in);
     private ArrayList<String> contacts = new ArrayList<String >();
 
 
@@ -22,31 +20,51 @@ public class MobilePhone {
             System.out.println( (i+1) +". " + contacts.get(i));
         }
     }
+    
+    public void modifyContact(String name, String phoneNumber){
+        if (find(name) >= 0 ){
+            String[] tempArray = (contacts.get(find(name))).split(" ");
 
-//    private String getName(String name) {
-//        return name;
-//    }
-//
-//    public void modifyContact(){
-//
-//    }
-//
-//    public void removeContact(){
-//
-//    }
-//
-//    public void findContact(){
-//
-//    }
-//
-//    public void menu(){
-//        quit
-//        print list of contacts
-//        add new contact (if the user already exists( by username))
-//        update contact (if the user already exists(by username))
-//        remove contact
-//        search/find a contact
-//    }
+            tempArray[0] = name;
+            tempArray[1] = phoneNumber;
+
+            contacts.set(find(name), String.join(" ", tempArray));
+        }
+    }
+
+    public void removeContact(String name){
+        if(find(name) >= 0){
+            System.out.println("Contact '" + name + "' deleted from contact list.");
+            contacts.remove(find(name));
+        } else{
+            System.out.println("No such contact. Can not delete.");
+        }
+
+    }
+
+    private int find(String name){
+        for(int i = 0; i < contacts.size(); i++){
+            String[] tempArray = (contacts.get(i)).split(" ");  // getting array [Artur, 29883372]
+            String tempName = tempArray[0];
+            if ((name.toLowerCase()).equals(tempName.toLowerCase())){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void findContact(String name){
+        if (find(name) > 0){
+            System.out.println("Contact '" + name +"' found in contact list.");
+        } else{
+            System.out.println("Contact '" + name +"' not found.");
+        }
+    }
+
+
+
+
+
 
 
 
